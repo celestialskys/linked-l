@@ -4,38 +4,96 @@
 #include "ListNode.h"
 
 using namespace std;
+bool validListType(int);
+void inputMenu();
+void typeInputMenu(const bool &);
 
 int main()
 {
-//     List<int, false> intList;
-//     intList.insertFront(4);
-//     intList.insertEnd(40);
-//     intList.insertFront(12);
-//     intList.removeFront();
-//     intList.insertEnd(33);
-//     intList.removeEnd();
-//     cout << "print:  ";
-//     intList.print();
-//     cout << "Backwards" << "\n";
-//     intList.printbackwards();
+    int type=0;
 
-    List<int, true> circularIntList;
-    circularIntList.insertFront(33);
-    circularIntList.insertEnd(12);
-    circularIntList.insertEnd(1);
-    // circularIntList.removeEnd();
-    circularIntList.print();
+    do {
+        cout << "Select Type of List\n"
+            << "1 for singly linked list\n"
+            << "2 for doubly linked list\n";
+        cin >> type;
+    } while(type!=1 && type!= 2);
 
-    circularIntList.insertFront(3);
-    circularIntList.print();
+    bool is_singly = type == 1 ? true : false;
+    typeInputMenu(is_singly);
 
-    circularIntList.insertFront(99);
-    circularIntList.print();
-
-    circularIntList.removeFront();
-    circularIntList.print();
-    cout << "Backwards \n";
-    circularIntList.printbackwards();
-    return 0;
+   return 0;
 }
 
+void inputMenu(){
+    cout << "Where do you want to add your number?\n"
+    << " 1 place at beginning\n"
+    << " 2 place at end\n"
+    << " 3 remove from beginning\n"
+    << " 4 remove from end\n"
+    << "9 to quit\n";
+}
+
+template<typename NODETYPE>
+void makeList(const bool &circular){
+    if(circular){
+        List<NODETYPE, true> list;
+        fillList(list);
+    } else {
+        List<NODETYPE, false> list;
+        fillList(list);
+    }
+}
+
+template< typename NODETYPE, bool isCircular>
+void fillList(List<NODETYPE, isCircular> &list){
+    NODETYPE value;
+    int placement;
+    do{
+        inputMenu();
+        cin >> placement;
+        switch(placement){
+            case 1:
+                cout << "Enter value: ";
+                cin >> value;
+                list.insertFront(value);
+                list.print();
+                break;
+            case 2:
+                cout << "Enter value: ";
+                cin >> value;
+                list.insertEnd(value);
+                list.print();
+                break;
+            case 3:
+                list.removeFront();
+                list.print();
+                break;
+            case 4:
+                list.removeEnd();
+                list.print();
+                break;
+        }
+    } while(placement !=9);
+    cout << "Bye :) ";
+}
+
+void typeInputMenu(const bool &circular){
+    int type;
+    while(type!=1 && type!=2 && type!=3){
+        cout << "What type of data do you want to add?\n"
+            << " 1 for int\n"
+            << " 2 for double\n";
+        cin >> type;
+        cout << endl;
+    }
+    switch (type)
+    {
+    case 1:
+        makeList<int>(circular);
+        break;
+    case 2:
+        makeList<double>(circular);
+        break;
+    }
+}
