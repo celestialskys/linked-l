@@ -172,7 +172,7 @@ void List<NODETYPE, isCircular>::printbackwards() const {
         do {
             cout << currPtr->data << " ";
             currPtr = currPtr->prevPtr;
-        } while((currPtr != 0) && (currPtr->nextPtr != firstPtr));
+        } while((currPtr != 0) && (currPtr!= lastPtr));
     } else {
         cout << "Empty \n\n";
     }

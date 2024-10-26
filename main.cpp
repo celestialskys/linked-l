@@ -31,6 +31,7 @@ void inputMenu(){
     << " 2 place at end\n"
     << " 3 remove from beginning\n"
     << " 4 remove from end\n"
+    << " 5 print current list backwards\n"
     << "9 to quit\n";
 }
 
@@ -72,6 +73,15 @@ void fillList(List<NODETYPE, isCircular> &list){
             case 4:
                 list.removeEnd();
                 list.print();
+                break;
+            case 5:
+                cout << "Your list forwards is: ";
+                list.print();
+                cout << endl;
+                cout << "You list backwards is: ";
+                list.printbackwards();
+                cout << endl;
+
                 break;
         }
     } while(placement !=9);
